@@ -6,3 +6,5 @@ GRANT SELECT ON Employees TO selector;
 GRANT selector TO hr_user;
 
 GRANT INSERT, UPDATE ON Employees TO hr_user;
+
+GRANT USAGE, SELECT ON SEQUENCE employees_employeeid_seq TO hr_user;

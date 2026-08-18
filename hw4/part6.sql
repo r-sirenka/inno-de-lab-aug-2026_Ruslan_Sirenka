@@ -21,15 +21,16 @@ WHERE EndDate IS NULL; --в нашем случае ничего не помен
 
 BEGIN;
 
-INSERT INTO Employees (FirstName, LastName, Department, Salary)
-VALUES ('John', 'Ruber', 'IT', 50000.00)
-RETURNING EmployeeID;
-
+WITH new_emp AS (
+    INSERT INTO Employees (FirstName, LastName, Department, Salary)
+    VALUES ('John', 'Ruber', 'IT', 50000.00)
+    RETURNING EmployeeID
+)
 INSERT INTO EmployeeProjects (EmployeeID, ProjectID, HoursWorked)
-VALUES (
-    (SELECT MAX(EmployeeID) FROM Employees WHERE FirstName = 'John' AND LastName = 'Ruber'),
+SELECT 
+    EmployeeID,
     (SELECT ProjectID FROM Projects WHERE ProjectName = 'Website Redesign'),
     80
-);
+FROM new_emp;
 
 COMMIT;
