@@ -25,7 +25,7 @@ ORDER BY category_orders DESC;
 SELECT dc.firstname, dc.lastname, fs.line_total --узнаем клиентов, которые сделали заказ выше среднего чека
 FROM FACT_SALES as fs
 JOIN DIM_CUSTOMER dc ON fs.customer_sk = dc.customer_sk
-WHERE fc.line_total > (SELECT AVG(line_total) FROM FACT_SALES); --через подзапрос узнаем где чек > среднего
+WHERE fs.line_total > (SELECT AVG(line_total) FROM FACT_SALES); --через подзапрос узнаем где чек > среднего
 
 SELECT 
     fs.sales_sk,
