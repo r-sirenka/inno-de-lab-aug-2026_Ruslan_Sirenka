@@ -29,20 +29,24 @@ def calculate_overdue_fine(
         numeric_days = float(days_overdue)
         total_fine = numeric_days * fine_rate
         return_index = DEFAULT_RETURN_INDEX_BASE / numeric_days
-        print(f"Фильм: '{movie_title}' | Итоговый штраф: {total_fine}$ | Индекс: {return_index}")
-        return total_fine, return_index
 
     except ValueError as e:
-        print(f"[ОШИБКА ЗНАЧЕНИЯ] Невозможно преобразовать дни в число для '{movie_title}': {e}")
+        print(f"[ОШИБКА ЗНАЧЕНИЯ] Невозможно преобразовать дни в число для '{movie_title}': {e}\n")
         return None
 
     except ZeroDivisionError:
-        print(f"[ОШИБКА ДЕЛЕНИЯ НА НОЛЬ] Возврат без просрочки для '{movie_title}': float division by zero")
+        print(f"[ОШИБКА ДЕЛЕНИЯ НА НОЛЬ] Возврат без просрочки для '{movie_title}': float division by zero\n")
         return None
 
     except TypeError:
-        print(f"[ОШИБКА ТИПА] Некорректный тип данных для '{movie_title}': float() argument must be a string or a real number, not 'list'")
+        print(f"[ОШИБКА ТИПА] Некорректный тип данных для '{movie_title}': float() argument must be a string or a real number, not 'list'\n")
         return None
+
+    else:
+        print(f"Фильм: '{movie_title}' | Итоговый штраф: {total_fine}$ | Индекс: {return_index}\n")
+        return total_fine, return_index
+    #вариант с блоком else, если соблюдать, что в try могут быть только 3 действия
+    #как по мне самый правильный и рабочий
 
     finally:
         print("--- Проверка транзакции возврата завершена ---\n")
@@ -50,14 +54,7 @@ def calculate_overdue_fine(
 
 print("=== ПРОВЕРКА ВОЗВРАТОВ ===\n")
 
-# Успешный расчёт
 calculate_overdue_fine("Matrix", 5, 1.5)
-
-# Ошибка значения
 calculate_overdue_fine("Inception", "пять", 2.0)
-
-# Ошибка деления на ноль
 calculate_overdue_fine("Avatar", 0, 2.5)
-
-# Ошибка типа
 calculate_overdue_fine("Interstellar", [3], 3.0)
