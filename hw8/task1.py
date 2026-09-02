@@ -1,5 +1,6 @@
 MAX_RENTAL_BATCH_LIMIT = 150.0
 
+
 def calculate_rental_batch(
     quantity: int,
     rental_rate: float,
@@ -31,5 +32,5 @@ print(f"Партия 2 (Affair Prejudice): Сумма {result[0]}$. Превыш
 result = calculate_rental_batch(10, 1.99)
 print(f"Партия 3 (Agent Truman): Сумма {result[0]}$. Превышение лимита: {result[1]}")
 
-result = calculate_rental_batch(50, 3.50, 0.2)
+result = calculate_rental_batch(quantity=50, discount=0.2, rental_rate=3.50)
 print(f"Партия 4 (African Egg): Сумма {result[0]}$. Превышение лимита: {result[1]}")

@@ -1,6 +1,5 @@
 DEFAULT_RETURN_INDEX_BASE = 10.0
 
-import time
 from typing import Any
 
 
@@ -19,11 +18,12 @@ def calculate_overdue_fine(
 
     Returns:
         tuple[float, float] | None: Кортеж с итоговым штрафом и индексом возврата, либо None в случае ошибки.
-    
-    Raises:
-        ValueError: Если дни просрочки не могут быть преобразованы в число.
-        ZeroDivisionError: Если дни просрочки равны нулю.
-        TypeError: Если тип данных days_overdue не поддерживает преобразование в float.
+
+    Note:
+        Функция обрабатывает следующие ошибки и возвращает None:
+        - ValueError: Если дни просрочки не могут быть преобразованы в число.
+        - ZeroDivisionError: Если дни просрочки равны нулю.
+        - TypeError: Если тип данных days_overdue не поддерживает преобразование в float.
     """
     try:
         numeric_days = float(days_overdue)
@@ -34,12 +34,12 @@ def calculate_overdue_fine(
         print(f"[ОШИБКА ЗНАЧЕНИЯ] Невозможно преобразовать дни в число для '{movie_title}': {e}\n")
         return None
 
-    except ZeroDivisionError:
-        print(f"[ОШИБКА ДЕЛЕНИЯ НА НОЛЬ] Возврат без просрочки для '{movie_title}': float division by zero\n")
+    except ZeroDivisionError as e:
+        print(f"[ОШИБКА ДЕЛЕНИЯ НА НОЛЬ] Возврат без просрочки для '{movie_title}': {e}\n")
         return None
 
-    except TypeError:
-        print(f"[ОШИБКА ТИПА] Некорректный тип данных для '{movie_title}': float() argument must be a string or a real number, not 'list'\n")
+    except TypeError as e:
+        print(f"[ОШИБКА ТИПА] Некорректный тип данных для '{movie_title}': {e}\n")
         return None
 
     else:
